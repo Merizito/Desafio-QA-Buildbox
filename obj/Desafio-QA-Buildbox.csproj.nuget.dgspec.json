@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Merizito\\Documents\\GitHub\\Desafio-QA-Buildbox\\Desafio-QA-Buildbox.csproj": {}
+    "c:\\Users\\Merizito\\Documents\\GitHub\\Desafio-QA-Buildbox\\Desafio-QA-Buildbox.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Merizito\\Documents\\GitHub\\Desafio-QA-Buildbox\\Desafio-QA-Buildbox.csproj": {
+    "c:\\Users\\Merizito\\Documents\\GitHub\\Desafio-QA-Buildbox\\Desafio-QA-Buildbox.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Merizito\\Documents\\GitHub\\Desafio-QA-Buildbox\\Desafio-QA-Buildbox.csproj",
+        "projectUniqueName": "c:\\Users\\Merizito\\Documents\\GitHub\\Desafio-QA-Buildbox\\Desafio-QA-Buildbox.csproj",
         "projectName": "Desafio-QA-Buildbox",
-        "projectPath": "C:\\Users\\Merizito\\Documents\\GitHub\\Desafio-QA-Buildbox\\Desafio-QA-Buildbox.csproj",
+        "projectPath": "c:\\Users\\Merizito\\Documents\\GitHub\\Desafio-QA-Buildbox\\Desafio-QA-Buildbox.csproj",
         "packagesPath": "C:\\Users\\Merizito\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Merizito\\Documents\\GitHub\\Desafio-QA-Buildbox\\obj\\",
+        "outputPath": "c:\\Users\\Merizito\\Documents\\GitHub\\Desafio-QA-Buildbox\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Merizito\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -38,6 +38,18 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "DotNetSeleniumExtras.PageObjects": {
+              "target": "Package",
+              "version": "[3.11.0, )"
+            },
+            "DotNetSeleniumExtras.PageObjects.Core": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "ExtentReports": {
+              "target": "Package",
+              "version": "[5.0.0-alpha6, )"
+            },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[17.1.0, )"
@@ -53,6 +65,14 @@
             "NUnit3TestAdapter": {
               "target": "Package",
               "version": "[4.2.1, )"
+            },
+            "Selenium.WebDriver": {
+              "target": "Package",
+              "version": "[4.4.0, )"
+            },
+            "Selenium.WebDriver.ChromeDriver": {
+              "target": "Package",
+              "version": "[104.0.5112.7900, )"
             },
             "coverlet.collector": {
               "target": "Package",
