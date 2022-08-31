@@ -14,3 +14,6 @@ Extent Reports | 5.0.0-alpha6
 
 ## Cenários de Teste 
 * Os Cenários de Teste se encontram na pasta "Features" na linguagem Gherkin.
+
+## Relatórios
+* Os relatórios gerados se encontram dentro da pasta "Reports".
