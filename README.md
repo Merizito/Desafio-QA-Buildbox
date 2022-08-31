@@ -12,5 +12,5 @@ Selenium Web Driver  | 4.4.0
 Chrome Driver | 104.0.5112.7900
 Extent Reports | 5.0.0-alpha6
 
-## Os Cenários de Teste 
+## Cenários de Teste 
 * Os Cenários de Teste se encontram na pasta "Features" na linguagem Gherkin.
