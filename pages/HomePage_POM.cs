@@ -1,9 +1,4 @@
-using System;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
-using NUnit.Framework;
-using System.Threading;
 using AventStack.ExtentReports;
 
 namespace Desafio_QA_Buildbox.pages;
@@ -39,6 +34,26 @@ public class HomePage_POM : Pages
             Assert.IsTrue(buger_eats_logo.Displayed);
             Assert.IsTrue(signup_btn.Displayed);
             Assert.IsTrue(h1_text.Displayed);
+
+            return true;
+        }
+        catch (Exception e)
+        {
+            test.Log(Status.Warning, e.Message);
+            System.Console.WriteLine(e.Message);
+            return false;
+        }
+    }
+
+    public bool TryNavigateDeliverPage(ExtentTest test)
+    {
+        try
+        {
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            DeliverPage_POM deliver = new DeliverPage_POM(driver, _url);
+
+            signup_btn.Click();
+            wait.Until(driver => deliver.form.Displayed == true);
 
             return true;
         }

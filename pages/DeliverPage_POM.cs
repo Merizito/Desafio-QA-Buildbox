@@ -1,9 +1,4 @@
-using System;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
-using NUnit.Framework;
-using System.Threading;
 using AventStack.ExtentReports;
 
 namespace Desafio_QA_Buildbox.pages;
@@ -93,6 +88,42 @@ public class DeliverPage_POM : Pages
     public IWebElement submit_btn { get; set; }
 
 
+    [FindsBy(How = How.Id, Using = "swal2-title")]
+    public IWebElement signUp_success_text { get; set; }
+
+
+    [FindsBy(How = How.CssSelector, Using = "body > div.swal2-container.swal2-center.swal2-backdrop-show > div > div.swal2-actions > button.swal2-confirm.swal2-styled")]
+    public IWebElement signUp_success_close_btn { get; set; }
+
+
+    [FindsBy(How = How.CssSelector, Using = "#page-deliver > form > fieldset:nth-child(2) > div:nth-child(2) > div:nth-child(1) > span")]
+    public IWebElement fullName_alert_error { get; set; }
+
+
+    [FindsBy(How = How.CssSelector, Using = "#page-deliver > form > fieldset:nth-child(2) > div:nth-child(2) > div:nth-child(2) > span")]
+    public IWebElement cpf_alert_error { get; set; }
+
+
+    [FindsBy(How = How.CssSelector, Using = "#page-deliver > form > fieldset:nth-child(2) > div:nth-child(3) > div:nth-child(1) > span")]
+    public IWebElement email_alert_error { get; set; }
+
+
+    [FindsBy(How = How.CssSelector, Using = "#page-deliver > form > fieldset:nth-child(3) > div:nth-child(2) > div:nth-child(1) > span")]
+    public IWebElement postalCode_alert_error { get; set; }
+
+
+    [FindsBy(How = How.CssSelector, Using = "#page-deliver > form > fieldset:nth-child(3) > div:nth-child(4) > div:nth-child(1) > span")]
+    public IWebElement addressNumber_alert_error { get; set; }
+
+
+    [FindsBy(How = How.CssSelector, Using = "#page-deliver > form > fieldset:nth-child(4) > span")]
+    public IWebElement deliveryMethod_alert_error { get; set; }
+
+
+    [FindsBy(How = How.CssSelector, Using = "#page-deliver > form > span")]
+    public IWebElement cnh_alert_error { get; set; }
+
+
     public bool VerifyElementsOnScreen(ExtentTest test)
     {
         try
@@ -101,6 +132,117 @@ public class DeliverPage_POM : Pages
             Assert.IsTrue(form.Displayed);
             Assert.IsTrue(back_home_btn.Displayed);
             Assert.IsTrue(submit_btn.Displayed);
+
+            return true;
+        }
+        catch (Exception e)
+        {
+            test.Log(Status.Warning, e.Message);
+            System.Console.WriteLine(e.Message);
+            return false;
+        }
+    }
+
+    public bool SignUpInHappyWay(ExtentTest test)
+    {
+        try
+        {
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+
+            wait.Until(driver => form.Displayed == true);
+
+            fullName_input.SendKeys("Buger Eats Teste");
+            cpf_input.SendKeys("12332112332");
+            email_input.SendKeys("bugereats_test@bugereats.com");
+            whatsapp_input.SendKeys("11111111111");
+
+            postalcode_input.SendKeys("32240470");
+            search_postalcode_btn.Click();
+
+            wait.Until(driver => address_input.GetAttribute("value") != "");
+
+            Assert.IsTrue(address_input.GetAttribute("value") == "Rua dos Barnabitas");
+            Assert.IsTrue(district_input.GetAttribute("value") == "Bandeirantes");
+            Assert.IsTrue(city_input.GetAttribute("value") == "Contagem/MG");
+
+            address_number_input.SendKeys("222");
+            address_details_input.SendKeys("");
+
+            motorcycle_method.Click();
+            Assert.That(motorcycle_method.GetAttribute("class") == "selected");
+
+            cnh_image_upload.SendKeys(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "GitHub\\Desafio-QA-Buildbox\\files\\Upload\\", "cnh_upload.jpg"));
+
+            submit_btn.Click();
+            
+            Assert.IsTrue(signUp_success_text.Displayed);
+            signUp_success_close_btn.Click();
+
+            return true;
+        }
+        catch (Exception e)
+        {
+            test.Log(Status.Warning, e.Message);    //Write exception message in report log
+            System.Console.WriteLine(e.Message);
+            return false;
+        }
+    }
+
+    public bool TrySignUpWithSpaceBarInput(ExtentTest test)
+    {
+        try
+        {
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+
+            wait.Until(driver => form.Displayed == true);
+
+            fullName_input.SendKeys("            ");
+            cpf_input.SendKeys("           ");
+            email_input.SendKeys("        @bugereats.com");
+            whatsapp_input.SendKeys("           ");
+
+            postalcode_input.SendKeys("        ");
+            search_postalcode_btn.Click();
+            Assert.IsTrue(postalCode_alert_error.Displayed);
+
+            motorcycle_method.Click();
+            Assert.That(motorcycle_method.GetAttribute("class") == "selected");
+
+            cnh_image_upload.SendKeys(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "GitHub\\Desafio-QA-Buildbox\\files\\Upload\\", "cnh_upload.jpg"));
+
+            submit_btn.Click();
+
+            Assert.IsFalse(driver.FindElements(By.Id(signUp_success_text.ToString())).Count() > 0);
+
+            return true;
+        }
+        catch (Exception e)
+        {
+            test.Log(Status.Warning, e.Message);
+            System.Console.WriteLine(e.Message);
+            return false;
+        }
+    }
+
+    public bool TrySignUpWithoutAnyInputs(ExtentTest test)
+    {
+        try
+        {
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+
+            wait.Until(driver => form.Displayed == true);
+
+            submit_btn.Click();
+            
+            Assert.IsTrue(fullName_alert_error.Displayed);
+            Assert.IsTrue(cpf_alert_error.Displayed);
+            Assert.IsTrue(email_alert_error.Displayed);
+            Assert.IsTrue(postalCode_alert_error.Displayed);
+            Assert.IsTrue(addressNumber_alert_error.Displayed);
+            Assert.IsTrue(deliveryMethod_alert_error.Displayed);
+            Assert.IsTrue(cnh_alert_error.Displayed);
+
+            test.Log(Status.Pass, "All alert errors has been displayed.");
 
             return true;
         }

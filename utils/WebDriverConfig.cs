@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
-using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
 namespace Desafio_QA_Buildbox.utils;
@@ -20,7 +15,7 @@ public class WebDriverConfig : ExtentReports
     {
         test_PageName = testPageName;
 
-        generalTest = generalReports.CreateTest(testPageName + "Test " + test_number + ": " + test_name).Info("Test " + test_number + " Started.");
+        generalTest = generalReports.CreateTest(testPageName + "Test " + test_number + ": " + test_name).Info("Test " + test_number + " Started."); //Test Name + first test log
         test_number++;
 
         var options = new ChromeOptions();
@@ -28,9 +23,9 @@ public class WebDriverConfig : ExtentReports
         // options.AddArgument("--headless");       //Run tests without driver interface
         options.AddArgument("--verbose");
 
-        driver = new ChromeDriver(options);
+        driver = new ChromeDriver(options); //Creates a new instance of ChromeDriver
 
-        driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(4);
+        driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(4);  //Defines a implicit wait of 4 seconds
         generalTest.Log(Status.Info, "Chrome Browser Launched.");
 
         generalTest.Log(Status.Info, "Navigating to the defined url.");
@@ -56,11 +51,11 @@ public class WebDriverConfig : ExtentReports
     {
         file_name = fileName;
 
-        var reportsFolder = System.IO.Path.Combine(path, file_name + ".html");
+        var reportsFolder = System.IO.Path.Combine(path, file_name + ".html");  //Sets the path folder to save the report with report name and type of report file.
         var htmlReporter = new ExtentSparkReporter(reportsFolder);
 
         htmlReporter.Config.DocumentTitle = test_PageName + "Report";
-        htmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Config.Theme.Dark;
+        htmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Config.Theme.Dark;    //Generates the .html file with dark theme
         generalReports.AttachReporter(htmlReporter);
     }
 

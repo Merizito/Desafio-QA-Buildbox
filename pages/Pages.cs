@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using OpenQA.Selenium;
 
 namespace Desafio_QA_Buildbox.pages;
